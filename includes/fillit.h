@@ -22,7 +22,7 @@ void	ft_check_spaces(char	*buffer);
 void	ft_check_spaces_last(char	*buffer);
 void	ft_count_hashtags(char *tetri);
 void	ft_check_symbols(char *buffer);
-void	ft_open(char *arg);
+void	ft_open_and_validation(char *arg, t_list *val_list);
 void	ft_error(void);
 void	ft_check_tetri(char *buffer);
 

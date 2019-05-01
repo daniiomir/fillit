@@ -63,17 +63,15 @@ void	ft_main_validation(t_list *val_list)
 		ft_error();
 }
 
-void	ft_open(char *arg)
+void	ft_open_and_validation(char *arg, t_list *val_list)
 {
 	int		fd;
 	int		ret;
 	int		count;
-	t_list	*val_list;
 	char	buffer[23];
 
 	count = 0;
 	fd = open(arg, O_RDONLY);
-	val_list = ft_lstnew(NULL, 0);
 	if (fd < 0)
 		ft_error();
 	while ((ret = read(fd, buffer, 21)))

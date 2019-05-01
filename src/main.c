@@ -14,8 +14,13 @@
 
 int		main(int argc, char **argv)
 {
+	t_list	*val_list;
+
 	if (argc == 2)
-		ft_open(argv[1]);
+	{
+		val_list = ft_lstnew(NULL, 0);
+		ft_open_and_validation(argv[1], val_list);
+	}
 	else
 		ft_putendl("usage: ./fillit [file]");
 }
