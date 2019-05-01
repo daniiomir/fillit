@@ -12,29 +12,6 @@
 
 #include "fillit.h"
 
-void	ft_error(void)
-{
-	ft_putendl("Error");
-	exit(1);
-}
-
-void	ft_check_spaces(char	*buffer)
-{
-	if (buffer[4] == '\n' && buffer[9] == '\n' \
-		&& buffer[14] == '\n' && buffer[19] == '\n' \
-		&& buffer[20] == '\n')
-		return ;
-	ft_error();
-}
-
-void	ft_check_spaces_last(char	*buffer)
-{
-	if (buffer[4] == '\n' && buffer[9] == '\n' \
-		&& buffer[14] == '\n' && buffer[19] == '\n')
-		return ;
-	ft_error();
-}
-
 void	ft_common_check_tetri(t_list *val_list)
 {
 	int		count;
@@ -56,6 +33,11 @@ void	ft_common_check_tetri(t_list *val_list)
 		ft_error();
 }
 
+void	ft_check_tetri(char *tetri)
+{
+	
+}
+
 void	ft_open(char *arg)
 {
 	int		fd;
@@ -72,7 +54,6 @@ void	ft_open(char *arg)
 	while ((ret = read(fd, buffer, 21)))
 	{
 		buffer[21] = '\0';
-		//ft_putstr(buffer);
 		ft_addnode(&val_list, buffer);
 	}
 	if (ret < 0)
