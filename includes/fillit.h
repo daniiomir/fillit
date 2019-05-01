@@ -17,10 +17,13 @@
 # include <fcntl.h>
 # include "libft.h"
 
-void	ft_common_check_tetri(t_list *val_list);
+void	ft_main_validation(t_list *val_list);
 void	ft_check_spaces(char	*buffer);
 void	ft_check_spaces_last(char	*buffer);
+void	ft_count_hashtags(char *tetri);
+void	ft_check_symbols(char *buffer);
 void	ft_open(char *arg);
 void	ft_error(void);
+void	ft_check_tetri(char *buffer);
 
 #endif

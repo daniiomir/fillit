@@ -12,7 +12,34 @@
 
 #include "fillit.h"
 
-void	ft_common_check_tetri(t_list *val_list)
+void	ft_check_tetri(char *buffer)
+{
+	int		i;
+	int		shapes;
+
+	i = 0;
+	shapes = 0;
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == '#')
+		{
+			if (i > 0 && buffer[i - 1] == '#')
+				shapes++;
+			if (i < 19 && buffer[i + 1] == '#')
+				shapes++;
+			if (i >= 5 && buffer[i - 5] == '#')
+				shapes++;
+			if (i <= 14 && buffer[i + 5] == '#')
+				shapes++;
+		}
+		i++;
+	}
+	if (shapes == 6 || shapes == 8)
+		return ;
+	ft_error();
+}
+
+void	ft_main_validation(t_list *val_list)
 {
 	int		count;
 	t_list	*current;
@@ -27,15 +54,13 @@ void	ft_common_check_tetri(t_list *val_list)
 			ft_check_spaces(current->content);
 		if (!current->next)
 			ft_check_spaces_last(current->content);
+		ft_check_symbols(current->content);
+		ft_count_hashtags(current->content);
+		ft_check_tetri(current->content);
 		current = current->next;
 	}
 	if (count > 26)
 		ft_error();
-}
-
-void	ft_check_tetri(char *tetri)
-{
-	
 }
 
 void	ft_open(char *arg)
@@ -59,5 +84,5 @@ void	ft_open(char *arg)
 	if (ret < 0)
 		ft_error();
 	ft_lsthead_del(&val_list);
-	ft_common_check_tetri(val_list);
+	ft_main_validation(val_list);
 }
