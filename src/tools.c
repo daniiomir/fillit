@@ -18,17 +18,16 @@ void	ft_error(void)
 	exit(1);
 }
 
-void	ft_check_symbols(char *buffer)
+int		ft_sqrt(int nb)
 {
-	int	i;
+	int digit;
 
-	i = 0;
-	while (buffer[i] != '\0')
-	{
-		if (buffer[i] != '.' && buffer[i] != '#' && buffer[i] != '\n')
-			ft_error();
-		i++;
-	}
+	digit = 1;
+	while (digit * digit < nb)
+		digit++;
+	if (digit * digit == nb)
+		return (digit);
+	return (0);
 }
 
 void	ft_check_spaces(char *buffer)
@@ -48,16 +47,23 @@ void	ft_check_spaces_last(char *buffer)
 	ft_error();
 }
 
-void	ft_count_hashtags(char *tetri)
+void	ft_count_and_check_symbols(char *buffer)
 {
 	int	i;
 	int	count;
 
 	i = 0;
-	count = 0;
-	while (tetri[i] != '\0')
+	while (buffer[i] != '\0')
 	{
-		if (tetri[i] == '#')
+		if (buffer[i] != '.' && buffer[i] != '#' && buffer[i] != '\n')
+			ft_error();
+		i++;
+	}
+	i = 0;
+	count = 0;
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == '#')
 			count++;
 		i++;
 	}

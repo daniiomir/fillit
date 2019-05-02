@@ -14,12 +14,14 @@
 
 int		main(int argc, char **argv)
 {
+	int		valid_tetri;
 	t_list	*val_list;
 
 	if (argc == 2)
 	{
 		val_list = ft_lstnew(NULL, 0);
-		ft_open_and_validation(argv[1], val_list);
+		valid_tetri = ft_open_and_validation(argv[1], val_list);
+		ft_putstr(ft_field_for_tetri(valid_tetri));
 	}
 	else
 		ft_putendl("usage: ./fillit [file]");

@@ -12,6 +12,30 @@
 
 #include "fillit.h"
 
+int		*ft_tetri_to_coo(char *buffer)
+{
+	int		i;
+	int		j;
+	int		g;
+	int		*coo;
+
+	i = 0;
+	j = 0;
+	g = 0;
+	coo = (int *)malloc(3);
+	while(buffer[i] != '#')
+		i++;
+	while (buffer[i] != '\0')
+	{
+		i++;
+		j++;	
+		if (buffer[i] == '#')
+			coo[g++] = j;
+	}
+	free(buffer);
+	return (coo);    
+}
+
 void	ft_check_tetri(char *buffer)
 {
 	int		i;
@@ -39,7 +63,7 @@ void	ft_check_tetri(char *buffer)
 	ft_error();
 }
 
-void	ft_main_validation(t_list *val_list)
+int		ft_main_validation(t_list *val_list)
 {
 	int		count;
 	t_list	*current;
@@ -49,28 +73,27 @@ void	ft_main_validation(t_list *val_list)
 	while (current != NULL)
 	{
 		count++;
-		ft_putstr(current->content);
+		//ft_putstr(current->content);
 		if (current->next)
 			ft_check_spaces(current->content);
 		if (!current->next)
 			ft_check_spaces_last(current->content);
-		ft_check_symbols(current->content);
-		ft_count_hashtags(current->content);
+		ft_count_and_check_symbols(current->content);
 		ft_check_tetri(current->content);
+		current->content = ft_tetri_to_coo(current->content);
 		current = current->next;
 	}
 	if (count > 26)
 		ft_error();
+	return (count);
 }
 
-void	ft_open_and_validation(char *arg, t_list *val_list)
+int		ft_open_and_validation(char *arg, t_list *val_list)
 {
 	int		fd;
 	int		ret;
-	int		count;
 	char	buffer[23];
 
-	count = 0;
 	fd = open(arg, O_RDONLY);
 	if (fd < 0)
 		ft_error();
@@ -82,5 +105,5 @@ void	ft_open_and_validation(char *arg, t_list *val_list)
 	if (ret < 0)
 		ft_error();
 	ft_lsthead_del(&val_list);
-	ft_main_validation(val_list);
+	return (ft_main_validation(val_list));
 }
