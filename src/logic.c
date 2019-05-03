@@ -12,16 +12,16 @@
 
 #include "fillit.h"
 
-static void    ft_strset(char *field, int c, int size)
+static void		ft_strset(char *field, int c, int size)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (i < size)
-        field[i++] = c;
+	i = 0;
+	while (i < size)
+		field[i++] = c;
 }
 
-char	        *ft_field_for_tetri(int	count)
+char			*ft_field_for_tetri(int count)
 {
 	int		i;
 	int		field;
@@ -38,9 +38,26 @@ char	        *ft_field_for_tetri(int	count)
 	i = 0;
 	while (i < field_n)
 	{
-	    if (((i + 1) % (ft_sqrt(field) + 1) == 0))
-    		tetri_field[i] = '\n';
+		if (((i + 1) % (ft_sqrt(field) + 1) == 0))
+			tetri_field[i] = '\n';
 		i++;
 	}
 	return (tetri_field);
+}
+
+void			ft_change_coordinates(int *coo)
+{
+	int	i;
+
+	i = 0;
+	while (i != 2)
+	{
+		if (coo[i] / 4 == 1)
+			coo[i] += 1;
+		if (coo[i] / 4 == 2)
+			coo[i] += 2;
+		if (coo[i] / 4 == 3)
+			coo[i] += 3;
+		i++;
+	}
 }

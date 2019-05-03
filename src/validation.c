@@ -23,17 +23,17 @@ int		*ft_tetri_to_coo(char *buffer)
 	j = 0;
 	g = 0;
 	coo = (int *)malloc(3);
-	while(buffer[i] != '#')
+	while (buffer[i] != '#')
 		i++;
 	while (buffer[i] != '\0')
 	{
 		i++;
-		j++;	
+		j++;
 		if (buffer[i] == '#')
 			coo[g++] = j;
 	}
 	free(buffer);
-	return (coo);    
+	return (coo);
 }
 
 void	ft_check_tetri(char *buffer)

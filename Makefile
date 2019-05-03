@@ -12,7 +12,7 @@
 
 NAME = fillit
 LIB_NAME = libft.a
-FLAGS = -Wall -Wextra -Werror -c
+FLAGS = -Wall -Wextra -Werror -c -g -O0
 HEADERS = ./includes
 SRCS = src/logic.c src/main.c src/validation.c src/tools.c
 OBJ = logic.o main.o validation.o tools.o
