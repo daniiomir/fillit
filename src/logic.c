@@ -21,7 +21,7 @@ static void		ft_strset(char *field, int c, int size)
 		field[i++] = c;
 }
 
-char			*ft_field_for_tetri(int count)
+char			*ft_field_for_tetri(int count, int step)
 {
 	int		i;
 	int		field;
@@ -29,9 +29,13 @@ char			*ft_field_for_tetri(int count)
 	char	*tetri_field;
 
 	i = 0;
-	while (ft_sqrt(count * 4 + i) == 0)
+	if (step == 0)
+		step = 1;
+	else
+		step = step * 2;
+	while (ft_sqrt((count * step) * 4 + i) == 0)
 		i++;
-	field = (count * 4) + i;
+	field = ((count * step) * 4) + i;
 	field_n = field + ft_sqrt(field);
 	tetri_field = ft_strnew(field_n);
 	ft_strset(tetri_field, '.', field_n);

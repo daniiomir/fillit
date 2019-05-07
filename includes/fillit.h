@@ -26,7 +26,7 @@ void	ft_error(void);
 int		ft_sqrt(int nb);
 void	ft_check_tetri(char *buffer);
 int		*ft_tetri_to_coo(char *buffer);
-char	*ft_field_for_tetri(int	count);
+char	*ft_field_for_tetri(int	count, int step);
 void	ft_change_coordinates(int *coo);
 
 #endif

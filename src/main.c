@@ -21,7 +21,7 @@ int		main(int argc, char **argv)
 	{
 		val_list = ft_lstnew(NULL, 0);
 		valid_tetri = ft_open_and_validation(argv[1], val_list);
-		ft_putstr(ft_field_for_tetri(valid_tetri));
+		ft_putstr(ft_field_for_tetri(valid_tetri, 0));
 	}
 	else
 		ft_putendl("usage: ./fillit [file]");

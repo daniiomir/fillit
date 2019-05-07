@@ -12,13 +12,13 @@
 
 #include "libft.h"
 
-void	ft_addnode(t_list **val_list, char *buffer)
+void	ft_addnode(t_list **val_list, char *buffer, int size)
 {
 	t_list	*new;
 
 	new = (t_list *)malloc(sizeof(t_list));
 	new->content = ft_strdup(buffer);
-	new->content_size = sizeof(buffer);
+	new->content_size = size;
 	new->next = NULL;
 	ft_lstadd_end(val_list, new);
 	ft_strclr(buffer);

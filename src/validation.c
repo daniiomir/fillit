@@ -92,15 +92,18 @@ int		ft_open_and_validation(char *arg, t_list *val_list)
 {
 	int		fd;
 	int		ret;
+	int		step;
 	char	buffer[23];
 
+	step = 0;
 	fd = open(arg, O_RDONLY);
 	if (fd < 0)
 		ft_error();
 	while ((ret = read(fd, buffer, 21)))
 	{
 		buffer[21] = '\0';
-		ft_addnode(&val_list, buffer);
+		ft_addnode(&val_list, buffer, 'A' + step);
+		step++;
 	}
 	if (ret < 0)
 		ft_error();

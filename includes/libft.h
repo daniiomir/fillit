@@ -89,6 +89,6 @@ char				*ft_rejoin(char *s1, char const *s2);
 int					get_next_line(const int fd, char **line);
 void				ft_lsthead_del(t_list **head);
 void				ft_lstadd_end(t_list **val_list, t_list *new);
-void				ft_addnode(t_list **val_list, char *buffer);
+void				ft_addnode(t_list **val_list, char *buffer, int size);
 
 #endif
