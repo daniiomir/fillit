@@ -79,7 +79,11 @@ LIB_SRCS = 	lib/ft_strlen.c \
 			lib/get_next_line.c \
 			lib/ft_lstadd_end.c \
 			lib/ft_lsthead_del.c \
-			lib/ft_addnode.c
+			lib/ft_addnode.c \
+			lib/ft_addnode_dlist.c \
+			lib/ft_dlisthead_del.c \
+			lib/ft_dlistadd_end.c \
+			lib/ft_dlist_new.c
 
 LIB_OBJ = 	ft_strlen.o \
 			ft_putchar.o \
@@ -144,7 +148,11 @@ LIB_OBJ = 	ft_strlen.o \
 			get_next_line.o \
 			ft_lstadd_end.o \
 			ft_lsthead_del.o \
-			ft_addnode.o
+			ft_addnode.o \
+			ft_addnode_dlist.o \
+			ft_dlisthead_del.o \
+			ft_dlistadd_end.o \
+			ft_dlist_new.o
 
 all: $(NAME)
 
