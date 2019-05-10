@@ -22,7 +22,7 @@ int		*ft_tetri_to_coo(char *buffer)
 	i = 0;
 	j = 0;
 	g = 0;
-	coo = (int *)malloc(3);
+	coo = (int *)malloc(3 * sizeof(int));
 	while (buffer[i] != '#')
 		i++;
 	while (buffer[i] != '\0')
@@ -87,7 +87,7 @@ int		ft_main_validation(t_dlist *val_list)
 	return (count);
 }
 
-int		ft_open_and_validation(char *arg, t_dlist *val_list)
+int		ft_open_and_validation(char *arg, t_dlist **val_list)
 {
 	int		fd;
 	int		ret;
@@ -101,11 +101,11 @@ int		ft_open_and_validation(char *arg, t_dlist *val_list)
 	while ((ret = read(fd, buffer, 21)))
 	{
 		buffer[21] = '\0';
-		ft_addnode_dlist(&val_list, buffer, 'A' + step);
+		ft_addnode_dlist(val_list, buffer, 'A' + step);
 		step++;
 	}
 	if (ret < 0)
 		ft_error();
-	ft_dlisthead_del(&val_list);
-	return (ft_main_validation(val_list));
+	ft_dlisthead_del(val_list);
+	return (ft_main_validation(*val_list));
 }

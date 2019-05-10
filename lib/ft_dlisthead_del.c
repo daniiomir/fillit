@@ -18,5 +18,6 @@ void	ft_dlisthead_del(t_dlist **head)
 
 	temp = *head;
 	*head = temp->next;
+	(*head)->prev = NULL;
 	free(temp);
 }

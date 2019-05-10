@@ -20,6 +20,7 @@ void	ft_addnode_dlist(t_dlist **val_list, char *buffer, int size)
 	new->content = ft_strdup(buffer);
 	new->content_size = size;
 	new->next = NULL;
+	new->prev = NULL;
 	ft_dlistadd_end(val_list, new);
 	ft_strclr(buffer);
 }

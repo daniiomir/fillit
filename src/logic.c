@@ -22,10 +22,10 @@ int		ft_add_tetri(char *map, t_dlist *current, int step, int map_len)
 	letter = current->content_size;
 	while (map[i] != '.')
 		i++;
-	a = current->content;
+	a = (int *)(current->content);
 	if ((i + a[0] < map_len) && (i + a[1] < map_len)
 		&& (i + a[2] < map_len) && (map[i + a[0]] == '.')
-		&& (map[i + a[1]] == '.') && map[i + a[2] == '.'])
+		&& (map[i + a[1]] == '.') && map[i + a[2]] == '.')
 	{
 		map[i] = letter;
 		map[i + a[0]] = letter;
@@ -65,9 +65,12 @@ int		ft_del_tetri(char *map, int letter)
 	return (pos);
 }
 
-int		ft_solve(char *tetri_map, t_dlist *current, int step, int map_len)
+int		ft_solve(char *tetri_map, t_dlist *val_list, int step, int map_len)
 {
-	while (current)
+	t_dlist *current;
+
+	current = val_list;
+	while (current != NULL)
 	{
 		step = ft_add_tetri(tetri_map, current, step, map_len);
 		if (step != -1)
