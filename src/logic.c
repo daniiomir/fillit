@@ -5,63 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 16:56:01 by swarner           #+#    #+#             */
-/*   Updated: 2019/04/25 16:56:02 by swarner          ###   ########.fr       */
+/*   Created: 2019/05/10 15:54:44 by swarner           #+#    #+#             */
+/*   Updated: 2019/05/10 15:54:46 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char		*ft_fill_map(char *map, int field_n, int field)
-{
-	int i;
-
-	i = 0;
-	while (i < field_n)
-		map[i++] = '.';
-	i = 0;
-	while (i < field_n)
-	{
-		if (((i + 1) % (ft_sqrt(field) + 1) == 0))
-			map[i] = '\n';
-		i++;
-	}
-	return (map);
-}
-
-char			*ft_field_for_tetri(int count, int step)
+int		ft_add_tetri(char *map, t_dlist *current, int step, int map_len)
 {
 	int		i;
-	int		field;
-	int		field_n;
-	char	*tetri_field;
+	int		*a;
+	int		letter;
 
-	i = 0;
-	if (step == 0)
-		step = 1;
-	else
-		step = step * 2;
-	while (ft_sqrt((count * step) * 4 + i) == 0)
+	i = step;
+	letter = current->content_size;
+	while (map[i] != '.')
 		i++;
-	field = ((count * step) * 4) + i;
-	field_n = field + ft_sqrt(field);
-	tetri_field = ft_strnew(field_n);
-	return (ft_fill_map(tetri_field, field_n, field));
+	a = current->content;
+	if ((i + a[0] < map_len) && (i + a[1] < map_len)
+		&& (i + a[2] < map_len) && (map[i + a[0]] == '.')
+		&& (map[i + a[1]] == '.') && map[i + a[2] == '.'])
+	{
+		map[i] = letter;
+		map[i + a[0]] = letter;
+		map[i + a[1]] = letter;
+		map[i + a[2]] = letter;
+		return (i);
+	}
+	else
+	{
+		if (map[i + 1] == '\0')
+			return (-1);
+		else
+			return (ft_add_tetri(map, current, i + 1, map_len));
+	}
+	return (-1);
 }
 
-void			ft_change_coordinates(int *coo)
+int		ft_del_tetri(char *map, int letter)
 {
-	int	i;
+	int			pos;
+	int			i;
+	int			check;
 
 	i = 0;
-	while (i != 2)
+	check = 0;
+	while (map[i])
 	{
-		if (coo[i] / 4 == 1)
-			coo[i] += 1;
-		if (coo[i] / 4 == 2)
-			coo[i] += 2;
-		if (coo[i] / 4 == 3)
-			coo[i] += 3;
+		if (map[i] == letter)
+		{
+			if (check == 0)
+				pos = i;
+			check = 1;
+			map[i] = '.';
+		}
 		i++;
 	}
+	return (pos);
+}
+
+int		ft_solve(char *tetri_map, t_dlist *current, int step, int map_len)
+{
+	while (current)
+	{
+		step = ft_add_tetri(tetri_map, current, step, map_len);
+		if (step != -1)
+		{
+			if (current->next)
+				current = current->next;
+			else
+				return (1);
+		}
+		else
+		{
+			if (current->prev)
+			{
+				current = current->prev;
+				step = (ft_del_tetri(tetri_map, current->content_size) + 1);
+			}
+			else
+			{
+				tetri_map = ft_field_for_tetri(map_len, 1); //почистить map прежде
+				return (ft_solve(tetri_map, current, 0, map_len));
+			}
+		}
+	}
+	return (0);
 }

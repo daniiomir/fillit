@@ -15,13 +15,17 @@
 int		main(int argc, char **argv)
 {
 	int		valid_tetri;
-	t_list	*val_list;
+	char	*tetri_map;
+	t_dlist	*val_list;
 
 	if (argc == 2)
 	{
-		val_list = ft_lstnew(NULL, 0);
+		val_list = ft_dlist_new(NULL, 0);
 		valid_tetri = ft_open_and_validation(argv[1], val_list);
-		ft_putstr(ft_field_for_tetri(valid_tetri, 0));
+		tetri_map = ft_field_for_tetri(valid_tetri, 0);
+		//ft_putstr(ft_field_for_tetri(valid_tetri, 0));
+		ft_solve(tetri_map, val_list, 0, ft_strlen(tetri_map));
+		ft_putendl(tetri_map);
 	}
 	else
 		ft_putendl("usage: ./fillit [file]");

@@ -63,17 +63,16 @@ void	ft_check_tetri(char *buffer)
 	ft_error();
 }
 
-int		ft_main_validation(t_list *val_list)
+int		ft_main_validation(t_dlist *val_list)
 {
 	int		count;
-	t_list	*current;
+	t_dlist	*current;
 
 	count = 0;
 	current = val_list;
 	while (current != NULL)
 	{
 		count++;
-		//ft_putstr(current->content);
 		if (current->next)
 			ft_check_spaces(current->content);
 		if (!current->next)
@@ -88,7 +87,7 @@ int		ft_main_validation(t_list *val_list)
 	return (count);
 }
 
-int		ft_open_and_validation(char *arg, t_list *val_list)
+int		ft_open_and_validation(char *arg, t_dlist *val_list)
 {
 	int		fd;
 	int		ret;
@@ -102,11 +101,11 @@ int		ft_open_and_validation(char *arg, t_list *val_list)
 	while ((ret = read(fd, buffer, 21)))
 	{
 		buffer[21] = '\0';
-		ft_addnode(&val_list, buffer, 'A' + step);
+		ft_addnode_dlist(&val_list, buffer, 'A' + step);
 		step++;
 	}
 	if (ret < 0)
 		ft_error();
-	ft_lsthead_del(&val_list);
+	ft_dlisthead_del(&val_list);
 	return (ft_main_validation(val_list));
 }
