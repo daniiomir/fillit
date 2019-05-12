@@ -29,7 +29,7 @@ static char		*ft_fill_map(char *map, int field_n, int field)
 	return (map);
 }
 
-char			*ft_field_for_tetri(int count, int step)
+char			*ft_field_for_tetri(int count, int step,  t_dlist *val_list)
 {
 	int		i;
 	int		field;
@@ -46,22 +46,47 @@ char			*ft_field_for_tetri(int count, int step)
 	field = ((count * step) * 4) + i;
 	field_n = field + ft_sqrt(field);
 	tetri_field = ft_strnew(field_n);
+	if (step > 1 && ft_sqrt(field) > 4)
+		ft_change_coordinates(val_list, ft_sqrt(field) - 1);
 	return (ft_fill_map(tetri_field, field_n, field));
 }
 
-void			ft_change_coordinates(int *coo)
+void ft_change_coordinates(t_dlist *val_list, int str_size)
 {
-	int	i;
+	int		i;
+	int		*coo;
+	t_dlist *current;
 
 	i = 0;
-	while (i != 2)
+	current = val_list;
+	while (current->next != NULL)
 	{
-		if (coo[i] / 4 == 1)
-			coo[i] += 1;
-		if (coo[i] / 4 == 2)
-			coo[i] += 2;
-		if (coo[i] / 4 == 3)
-			coo[i] += 3;
-		i++;
+		coo = (int *)current->content;
+		i = 0;
+		while (i != 3)
+		{
+//		    coo[i] += coo[i] / str_size;
+			if (coo[i] / str_size == 1)
+				coo[i] += 1;
+			else if (coo[i] / str_size == 2)
+				coo[i] += 2;
+			else if (coo[i] / str_size == 3)
+				coo[i] += 3;
+			i++;
+		}
+		current = current->next;
 	}
+    i = 0;
+    coo = (int *)current->content;
+    while (i != 3)
+    {
+//		    coo[i] += coo[i] / str_size;
+        if (coo[i] / str_size == 1)
+            coo[i] += 1;
+        else if (coo[i] / str_size == 2)
+            coo[i] += 2;
+        else if (coo[i] / str_size == 3)
+            coo[i] += 3;
+        i++;
+    }
 }

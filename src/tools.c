@@ -25,9 +25,7 @@ int		ft_sqrt(int nb)
 	digit = 1;
 	while (digit * digit < nb)
 		digit++;
-	if (digit * digit == nb)
-		return (digit);
-	return (0);
+    return digit * digit == nb ? digit : 0;
 }
 
 void	ft_check_spaces(char *buffer)

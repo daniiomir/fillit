@@ -26,11 +26,10 @@ void	ft_error(void);
 int		ft_sqrt(int nb);
 void	ft_check_tetri(char *buffer);
 int		*ft_tetri_to_coo(char *buffer);
-char	*ft_field_for_tetri(int	count, int step);
-void	ft_change_coordinates(int *coo);
-int		ft_add_tetri(char *map, t_dlist *current, int step, int map_len);
-int		ft_del_tetri(char *map, int letter);
-int		ft_solve(char *tetri_map, t_dlist *current, int step, int map_len);
-
+char	*ft_field_for_tetri(int	count, int step, t_dlist *val_list);
+void	ft_change_coordinates(t_dlist *val_list, int str_size);
+int		ft_add_tetri(char *tetri_map, t_dlist *current, int step);
+int		ft_del_tetri(char *tetri_map, int letter);
+int		ft_solve(t_dlist *val_list, char *tetri_map, int step);
 
 #endif

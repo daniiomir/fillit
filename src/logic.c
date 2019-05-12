@@ -5,94 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/10 15:54:44 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/10 15:54:46 by swarner          ###   ########.fr       */
+/*   Created: 2019/05/12 16:23:49 by swarner           #+#    #+#             */
+/*   Updated: 2019/05/12 16:23:52 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		ft_add_tetri(char *map, t_dlist *current, int step, int map_len)
+int		ft_add_tetri(char *tetri_map, t_dlist *current, int step)
 {
-	int		i;
-	int		*a;
+	int		*coo;
 	int		letter;
+	int		map_len;
 
-	i = step;
+	map_len = ft_strlen(tetri_map);
+	coo = (int *)(current->content);
 	letter = current->content_size;
-	while (map[i] != '.')
-		i++;
-	a = (int *)(current->content);
-	if ((i + a[0] < map_len) && (i + a[1] < map_len)
-		&& (i + a[2] < map_len) && (map[i + a[0]] == '.')
-		&& (map[i + a[1]] == '.') && map[i + a[2]] == '.')
+	while (tetri_map[step] != '\0' && tetri_map[step] != '.')
+		step++;
+	if (step + coo[2] < map_len && tetri_map[step + coo[0]] == '.'
+		&& tetri_map[step + coo[1]] == '.' && tetri_map[step + coo[2]] == '.')
 	{
-		map[i] = letter;
-		map[i + a[0]] = letter;
-		map[i + a[1]] = letter;
-		map[i + a[2]] = letter;
-		return (i);
+		tetri_map[step] = letter;
+		tetri_map[step + coo[0]] = letter;
+		tetri_map[step + coo[1]] = letter;
+		tetri_map[step + coo[2]] = letter;
+		return (step);
 	}
-	else
-	{
-		if (map[i + 1] == '\0')
+	if (tetri_map[step + 1] == '\0')
 			return (-1);
-		else
-			return (ft_add_tetri(map, current, i + 1, map_len));
-	}
-	return (-1);
+	else
+			return (ft_add_tetri(tetri_map, current, step + 1));
+	return (0);
 }
 
-int		ft_del_tetri(char *map, int letter)
+int		ft_del_tetri(char *tetri_map, int letter)
 {
-	int			pos;
-	int			i;
-	int			check;
+	int		i;
+	int		step;
+	int		check;
 
 	i = 0;
 	check = 0;
-	while (map[i])
+	while (tetri_map[i])
 	{
-		if (map[i] == letter)
+		if (tetri_map[i] == letter)
 		{
 			if (check == 0)
-				pos = i;
+				step = i;
 			check = 1;
-			map[i] = '.';
+			tetri_map[i] = '.';
 		}
 		i++;
 	}
-	return (pos);
+	return (step);
 }
 
-int		ft_solve(char *tetri_map, t_dlist *val_list, int step, int map_len)
+int		ft_solve(t_dlist *val_list, char *tetri_map, int step)
 {
 	t_dlist *current;
 
 	current = val_list;
 	while (current != NULL)
 	{
-		step = ft_add_tetri(tetri_map, current, step, map_len);
-		if (step != -1)
+		step = ft_add_tetri(tetri_map, current, step);
+		if (current->next)
+		    current = current->next;
+		if (step == -1)
 		{
-			if (current->next)
-				current = current->next;
-			else
-				return (1);
-		}
-		else
-		{
-			if (current->prev)
-			{
-				current = current->prev;
-				step = (ft_del_tetri(tetri_map, current->content_size) + 1);
-			}
-			else
-			{
-				tetri_map = ft_field_for_tetri(map_len, 1); //почистить map прежде
-				return (ft_solve(tetri_map, current, 0, map_len));
-			}
+		    if (current->prev)
+		    {
+                current = current->prev;
+		        step = ft_del_tetri(tetri_map, current->content_size) + 1;
+		    }
 		}
 	}
-	return (0);
+	return (1);
 }
