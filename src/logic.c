@@ -69,7 +69,9 @@ int		ft_solve(t_dlist *val_list, char *tetri_map, int step)
 	while (current != NULL)
 	{
 		step = ft_add_tetri(tetri_map, current, step);
-		if (current->next)
+		if (current->prev == NULL && step == -1)
+            break ;
+		if (current->next && step != -1)
 		    current = current->next;
 		if (step == -1)
 		{
@@ -80,5 +82,7 @@ int		ft_solve(t_dlist *val_list, char *tetri_map, int step)
 		    }
 		}
 	}
-	return (1);
+	if (step != -1)
+	    return (1);
+	return (0);
 }

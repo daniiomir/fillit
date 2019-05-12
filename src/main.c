@@ -30,7 +30,8 @@ int		main(int argc, char **argv)
 		while (ft_solve(val_list, tetri_map, step) == 0)
         {
 		    free(tetri_map);
-			tetri_map = ft_field_for_tetri(valid_tetri, ++i, val_list);
+		    i++;
+			tetri_map = ft_field_for_tetri(valid_tetri, i, val_list);
         }
 		ft_putstr(tetri_map);
 

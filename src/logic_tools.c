@@ -29,7 +29,7 @@ static char		*ft_fill_map(char *map, int field_n, int field)
 	return (map);
 }
 
-char			*ft_field_for_tetri(int count, int step,  t_dlist *val_list)
+char			*ft_field_for_tetri(int count, int step, t_dlist *val_list)
 {
 	int		i;
 	int		field;
@@ -37,13 +37,9 @@ char			*ft_field_for_tetri(int count, int step,  t_dlist *val_list)
 	char	*tetri_field;
 
 	i = 0;
-	if (step == 0)
-		step = 1;
-	else
-		step = step * 2;
-	while (ft_sqrt((count * step) * 4 + i) == 0)
+	while (ft_sqrt((count + step) * 4 + i) == 0)
 		i++;
-	field = ((count * step) * 4) + i;
+	field = ((count + step) * 4) + i;
 	field_n = field + ft_sqrt(field);
 	tetri_field = ft_strnew(field_n);
 	if (step > 1 && ft_sqrt(field) > 4)
