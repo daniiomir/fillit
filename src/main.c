@@ -33,8 +33,6 @@ int		main(int argc, char **argv)
 		    i++;
 			tetri_map = ft_field_for_tetri(valid_tetri, i, val_list);
         }
-		//ft_putstr(tetri_map);
-
 	}
 	else
 		ft_putendl("usage: ./fillit [file]");

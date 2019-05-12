@@ -42,7 +42,7 @@ char			*ft_field_for_tetri(int count, int step, t_dlist *val_list)
 	field = ((count + step) * 4) + i;
 	field_n = field + ft_sqrt(field);
 	tetri_field = ft_strnew(field_n);
-	if (step > 1 && ft_sqrt(field) > 4)
+	if (step >= 1 && ft_sqrt(field) > 4)
 		ft_change_coordinates(val_list, ft_sqrt(field) - 1);
 	return (ft_fill_map(tetri_field, field_n, field));
 }
