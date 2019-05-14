@@ -6,37 +6,61 @@
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/21 21:57:14 by swarner           #+#    #+#             */
-/*   Updated: 2019/04/21 21:57:16 by swarner          ###   ########.fr       */
+/*   Updated: 2019/05/14 15:46:26 by gfoote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		*ft_tetri_to_coo(char *buffer)
+static void	ft_move(int *coo)
 {
 	int		i;
-	int		j;
-	int		g;
-	int		*coo;
+	int		check;
 
-	i = 0;
-	j = 0;
-	g = 0;
-	coo = (int *)malloc(3 * sizeof(int));
-	while (buffer[i] != '#')
-		i++;
-	while (buffer[i] != '\0')
+	i = -1;
+	check = 0;
+	while (++i != 4)
+		if (coo[i] % 5 > 0)
+			check++;
+	if (check == 4)
 	{
-		i++;
-		j++;
-		if (buffer[i] == '#')
-			coo[g++] = j;
+		i = 0;
+		while (i != 4)
+			coo[i++] -= 1;
+		ft_move(coo);
 	}
+}
+
+int			*ft_tetri_to_coo(char *buffer)
+{
+	int		i[2];
+	int		level;
+	int		*coo;
+	int		step;
+
+	i[0] = -1;
+	i[1] = 0;
+	level = 0;
+	step = 0;
+	coo = (int *)malloc(4 * sizeof(int));
+	while (buffer[++i[0]] != '\0' && i[1] != 4)
+	{
+		if (buffer[i[0]] == '#')
+		{
+			if (i[1] == 0)
+				coo[i[1]++] = i[0] % 5;
+			else
+				coo[i[1]++] = (i[0] / 5 > level) ? i[0] % 5 + 5 * (++step)
+						: i[0] % 5 + 5 * step;
+			level = i[0] / 5;
+		}
+	}
+	ft_move(coo);
 	free(buffer);
 	return (coo);
 }
 
-void	ft_check_tetri(char *buffer)
+void		ft_check_tetri(char *buffer)
 {
 	int		i;
 	int		shapes;
@@ -63,7 +87,7 @@ void	ft_check_tetri(char *buffer)
 	ft_error();
 }
 
-int		ft_main_validation(t_dlist *val_list)
+int			ft_main_validation(t_dlist *val_list)
 {
 	int		count;
 	t_dlist	*current;
@@ -87,14 +111,16 @@ int		ft_main_validation(t_dlist *val_list)
 	return (count);
 }
 
-int		ft_open_and_validation(char *arg, t_dlist **val_list)
+int			ft_open_and_validation(char *arg, t_dlist **val_list)
 {
 	int		fd;
 	int		ret;
 	int		step;
+	int		count;
 	char	buffer[23];
 
 	step = 0;
+	count = 0;
 	fd = open(arg, O_RDONLY);
 	if (fd < 0)
 		ft_error();
@@ -103,8 +129,9 @@ int		ft_open_and_validation(char *arg, t_dlist **val_list)
 		buffer[21] = '\0';
 		ft_addnode_dlist(val_list, buffer, 'A' + step);
 		step++;
+		count++;
 	}
-	if (ret < 0)
+	if (ret < 0 || (ret == 0 && count == 0))
 		ft_error();
 	ft_dlisthead_del(val_list);
 	return (ft_main_validation(*val_list));

@@ -6,7 +6,7 @@
 #    By: swarner <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/21 21:41:29 by swarner           #+#    #+#              #
-#    Updated: 2019/04/21 21:41:31 by swarner          ###   ########.fr        #
+#    Updated: 2019/05/14 15:44:10 by gfoote           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,162 +14,51 @@ NAME = fillit
 LIB_NAME = libft.a
 FLAGS = -Wall -Wextra -Werror -c -g -O0
 HEADERS = ./includes
-SRCS = src/logic_tools.c src/main.c src/validation.c src/tools.c src/logic.c
-OBJ = logic_tools.o main.o validation.o tools.o logic.o
-LIB_SRCS = 	lib/ft_strlen.c \
-			lib/ft_putchar.c \
-			lib/ft_putstr.c \
-			lib/ft_strdup.c \
-			lib/ft_atoi.c \
-			lib/ft_strcpy.c \
-			lib/ft_strncpy.c \
-			lib/ft_strcmp.c \
-			lib/ft_strncmp.c \
-			lib/ft_isdigit.c \
-			lib/ft_isprint.c \
-			lib/ft_isascii.c \
-			lib/ft_isalnum.c \
-			lib/ft_isalpha.c \
-			lib/ft_toupper.c \
-			lib/ft_tolower.c \
-			lib/ft_memset.c \
-			lib/ft_bzero.c \
-			lib/ft_memcpy.c \
-			lib/ft_memccpy.c \
-			lib/ft_memmove.c \
-			lib/ft_memchr.c \
-			lib/ft_memcmp.c \
-			lib/ft_strcat.c \
-			lib/ft_strncat.c \
-			lib/ft_strlcat.c \
-			lib/ft_strchr.c \
-			lib/ft_strrchr.c \
-			lib/ft_strstr.c \
-			lib/ft_strnstr.c \
-			lib/ft_putendl.c \
-			lib/ft_putnbr.c \
-			lib/ft_putchar_fd.c \
-			lib/ft_putstr_fd.c \
-			lib/ft_putendl_fd.c \
-			lib/ft_putnbr_fd.c \
-			lib/ft_memalloc.c \
-			lib/ft_memdel.c \
-			lib/ft_strnew.c \
-			lib/ft_strdel.c \
-			lib/ft_strclr.c \
-			lib/ft_striter.c \
-			lib/ft_striteri.c \
-			lib/ft_strmap.c \
-			lib/ft_strmapi.c \
-			lib/ft_strequ.c \
-			lib/ft_strnequ.c \
-			lib/ft_strsub.c \
-			lib/ft_strjoin.c \
-			lib/ft_strtrim.c \
-			lib/ft_itoa.c \
-			lib/ft_strsplit.c \
-			lib/ft_lstnew.c \
-			lib/ft_lstadd.c \
-			lib/ft_lstdelone.c \
-			lib/ft_lstdel.c \
-			lib/ft_lstiter.c \
-			lib/ft_lstmap.c \
-			lib/ft_rejoin.c \
-			lib/ft_strjoin_free.c \
-			lib/get_next_line.c \
-			lib/ft_lstadd_end.c \
-			lib/ft_lsthead_del.c \
-			lib/ft_addnode.c \
-			lib/ft_addnode_dlist.c \
-			lib/ft_dlisthead_del.c \
-			lib/ft_dlistadd_end.c \
-			lib/ft_dlist_new.c
-
-LIB_OBJ = 	ft_strlen.o \
-			ft_putchar.o \
-			ft_putstr.o \
-			ft_strdup.o \
-			ft_atoi.o \
-			ft_strcpy.o \
-			ft_strncpy.o \
-			ft_strcmp.o \
-			ft_strncmp.o \
-			ft_isdigit.o \
-			ft_isprint.o \
-			ft_isascii.o \
-			ft_isalnum.o \
-			ft_isalpha.o \
-			ft_toupper.o \
-			ft_tolower.o \
-			ft_memset.o \
-			ft_bzero.o \
-			ft_memcpy.o \
-			ft_memccpy.o \
-			ft_memmove.o \
-			ft_memchr.o \
-			ft_memcmp.o \
-			ft_strcat.o \
-			ft_strncat.o \
-			ft_strlcat.o \
-			ft_strchr.o \
-			ft_strrchr.o \
-			ft_strstr.o \
-			ft_strnstr.o \
-			ft_putendl.o \
-			ft_putnbr.o \
-			ft_putchar_fd.o \
-			ft_putstr_fd.o \
-			ft_putendl_fd.o \
-			ft_putnbr_fd.o \
-			ft_memalloc.o \
-			ft_memdel.o \
-			ft_strnew.o \
-			ft_strdel.o \
-			ft_strclr.o \
-			ft_striter.o \
-			ft_striteri.o \
-			ft_strmap.o \
-			ft_strmapi.o \
-			ft_strequ.o \
-			ft_strnequ.o \
-			ft_strsub.o \
-			ft_strjoin.o \
-			ft_strtrim.o \
-			ft_itoa.o \
-			ft_strsplit.o \
-			ft_lstnew.o \
-			ft_lstadd.o \
-			ft_lstdelone.o \
-			ft_lstdel.o \
-			ft_lstiter.o \
-			ft_lstmap.o \
-			ft_rejoin.o \
-			ft_strjoin_free.o \
-			get_next_line.o \
-			ft_lstadd_end.o \
-			ft_lsthead_del.o \
-			ft_addnode.o \
-			ft_addnode_dlist.o \
-			ft_dlisthead_del.o \
-			ft_dlistadd_end.o \
-			ft_dlist_new.o
+SRC = logic_tools.c main.c validation.c tools.c logic.c
+SRCDIR = src
+SRCS = $(addprefix $(SRCDIR)/, $(SRC))
+OBJ = $(SRC:.c=.o)
+LIB_SRC = 	ft_strlen.c ft_putchar.c ft_putstr.c ft_strdup.c ft_atoi.c \
+            ft_strcpy.c ft_strncpy.c ft_strcmp.c ft_strncmp.c ft_isdigit.c \
+            ft_isprint.c ft_isascii.c ft_isalnum.c ft_isalpha.c ft_toupper.c \
+            ft_tolower.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
+            ft_memmove.c ft_memchr.c ft_memcmp.c ft_strcat.c ft_strncat.c \
+            ft_strlcat.c ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c \
+            ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_lstadd.c \
+            ft_putendl_fd.c ft_memalloc.c ft_memdel.c ft_strnew.c ft_strdel.c \
+            ft_strclr.c ft_striter.c ft_striteri.c ft_strmap.c ft_strmapi.c \
+            ft_putnbr_fd.c ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c \
+            ft_strtrim.c ft_itoa.c ft_strsplit.c ft_lstnew.c ft_addnode.c \
+            ft_lstdelone.c ft_lstdel.c ft_lstiter.c ft_lstmap.c ft_rejoin.c \
+            ft_strjoin_free.c get_next_line.c ft_lstadd_end.c ft_lsthead_del.c \
+			ft_addnode_dlist.c ft_dlisthead_del.c ft_dlistadd_end.c \
+			ft_dlist_new.c
+LIBDIR = lib
+LIB_SRCS = $(addprefix $(LIBDIR)/, $(LIB_SRC))
+OBJDIR = objs
+LIB_OBJS = $(addprefix $(OBJDIR)/, $(LIB_OBJ))
+LIB_OBJ = $(LIB_SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME):
-	gcc $(FLAGS) -I $(HEADERS) $(LIB_SRCS)
-	ar rc $(LIB_NAME) $(LIB_OBJ)
-	ranlib $(LIB_NAME)
-	gcc $(FLAGS) -I $(HEADERS) $(SRCS)
-	gcc $(OBJ) -L. -lft -o $(NAME)
+	@gcc $(FLAGS) -I $(HEADERS) $(LIB_SRCS)
+	@ar rc $(LIB_NAME) $(LIB_OBJ)
+	@mkdir -p $(OBJDIR);
+	@mv $(LIB_OBJ) $(OBJDIR)/
+	@ranlib $(LIB_NAME)
+	@gcc $(FLAGS) -I $(HEADERS) $(SRCS)
+	@gcc $(OBJ) -L. -lft -o $(NAME)
 
 leak_check: re
-	valgrind --leak-check=full ./$(NAME) 1.txt
+	@valgrind --leak-check=full ./$(NAME) 1.txt
 
 clean:
-	/bin/rm -f $(OBJ) $(LIB_OBJ)
+	@/bin/rm -f $(OBJ) 
+	@/bin/rm -rf $(OBJDIR)
+	@rm -f .DS_STORE
 
 fclean: clean
-	/bin/rm -f $(NAME) $(LIB_NAME)
+	@/bin/rm -f $(NAME) $(LIB_NAME)
 
 re: fclean all

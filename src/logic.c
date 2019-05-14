@@ -6,7 +6,7 @@
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 16:23:49 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/12 16:23:52 by swarner          ###   ########.fr       */
+/*   Updated: 2019/05/14 15:12:59 by gfoote           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,19 @@ int		ft_add_tetri(char *tetri_map, t_dlist *current, int step)
 	letter = current->content_size;
 	while (tetri_map[step] != '\0' && tetri_map[step] != '.')
 		step++;
-	if (step + coo[2] < map_len && tetri_map[step + coo[0]] == '.'
-		&& tetri_map[step + coo[1]] == '.' && tetri_map[step + coo[2]] == '.')
+	if (step + coo[3] - coo[0] < map_len &&
+		tetri_map[step + coo[1] - coo[0]] == '.'
+		&& tetri_map[step + coo[2] - coo[0]] == '.' &&
+		tetri_map[step + coo[3] - coo[0]] == '.')
 	{
 		tetri_map[step] = letter;
-		tetri_map[step + coo[0]] = letter;
-		tetri_map[step + coo[1]] = letter;
-		tetri_map[step + coo[2]] = letter;
+		tetri_map[step + coo[1] - coo[0]] = letter;
+		tetri_map[step + coo[2] - coo[0]] = letter;
+		tetri_map[step + coo[3] - coo[0]] = letter;
 		return (step);
 	}
-	if (tetri_map[step + 1] == '\0')
-			return (-1);
-	else
-			return (ft_add_tetri(tetri_map, current, step + 1));
-	return (0);
+	return (tetri_map[step + 1] == '\0') ? -1 :
+	(ft_add_tetri(tetri_map, current, step + 1));
 }
 
 int		ft_del_tetri(char *tetri_map, int letter)
@@ -70,21 +69,21 @@ int		ft_solve(t_dlist *val_list, char *tetri_map, int step)
 	{
 		step = ft_add_tetri(tetri_map, current, step);
 		if (current->prev == NULL && step == -1)
-            break;
-        if (!current->next && step != -1)
-        {
-            ft_putstr(tetri_map);
-            exit(1);
-        }
+			break ;
+		if (!current->next && step != -1)
+			ft_putstr_exit(tetri_map);
 		if (current->next && step != -1)
-		    current = current->next;
+		{
+			step = 0;
+			current = current->next;
+		}
 		if (step == -1)
 		{
-		    if (current->prev)
-		    {
-                current = current->prev;
-		        step = ft_del_tetri(tetri_map, current->content_size) + 1;
-		    }
+			if (current->prev)
+			{
+				current = current->prev;
+				step = ft_del_tetri(tetri_map, current->content_size) + 1;
+			}
 		}
 	}
 	return (0);

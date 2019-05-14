@@ -99,7 +99,8 @@ void				ft_lsthead_del(t_list **head);
 void				ft_lstadd_end(t_list **val_list, t_list *new);
 void				ft_addnode(t_list **val_list, char *buffer, int size);
 
-void				ft_addnode_dlist(t_dlist **val_list, char *buffer, int size);
+void				ft_addnode_dlist(t_dlist **val_list, char *buffer,
+	int size);
 void				ft_dlisthead_del(t_dlist **head);
 void				ft_dlistadd_end(t_dlist **val_list, t_dlist *new);
 t_dlist				*ft_dlist_new(void const *content, size_t content_size);
