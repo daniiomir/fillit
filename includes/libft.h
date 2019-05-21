@@ -104,5 +104,7 @@ void				ft_addnode_dlist(t_dlist **val_list, char *buffer,
 void				ft_dlisthead_del(t_dlist **head);
 void				ft_dlistadd_end(t_dlist **val_list, t_dlist *new);
 t_dlist				*ft_dlist_new(void const *content, size_t content_size);
+void				ft_free_dlist(t_dlist *list);
+void				ft_free_list(t_list *list);
 
 #endif

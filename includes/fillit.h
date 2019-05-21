@@ -31,6 +31,6 @@ void	ft_change_coordinates(t_dlist *val_list, int cur_size, int prev_size);
 int		ft_add_tetri(char *tetri_map, t_dlist *current, int step);
 int		ft_del_tetri(char *tetri_map, int letter);
 int		ft_solve(t_dlist *val_list, char *tetri_map, int step);
-void	ft_putstr_exit(const char *s);
+void	ft_putstr_exit(const char *s, t_dlist *val_list);
 
 #endif

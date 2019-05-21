@@ -12,11 +12,13 @@
 
 #include "fillit.h"
 
-void		ft_putstr_exit(const char *s)
+void		ft_putstr_exit(const char *s, t_dlist *val_list)
 {
 	if (!s)
 		return ;
 	write(1, s, ft_strlen(s));
+	free((char *)s);
+	ft_free_dlist(val_list);
 	exit(1);
 }
 

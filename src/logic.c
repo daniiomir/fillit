@@ -71,7 +71,7 @@ int		ft_solve(t_dlist *val_list, char *tetri_map, int step)
 		if (current->prev == NULL && step == -1)
 			break ;
 		if (!current->next && step != -1)
-			ft_putstr_exit(tetri_map);
+			ft_putstr_exit(tetri_map, val_list);
 		if (current->next && step != -1)
 		{
 			step = 0;

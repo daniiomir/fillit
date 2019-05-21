@@ -32,7 +32,7 @@ LIB_SRC = 	ft_strlen.c ft_putchar.c ft_putstr.c ft_strdup.c ft_atoi.c \
             ft_lstdelone.c ft_lstdel.c ft_lstiter.c ft_lstmap.c ft_rejoin.c \
             ft_strjoin_free.c get_next_line.c ft_lstadd_end.c ft_lsthead_del.c \
 			ft_addnode_dlist.c ft_dlisthead_del.c ft_dlistadd_end.c \
-			ft_dlist_new.c
+			ft_dlist_new.c ft_free_dlist.c ft_free_list.c
 LIBDIR = lib
 LIB_SRCS = $(addprefix $(LIBDIR)/, $(LIB_SRC))
 OBJDIR = objs
